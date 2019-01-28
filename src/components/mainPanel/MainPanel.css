@@ -1,0 +1,50 @@
+.main-panel {
+  flex-grow: 1;
+  padding: 20px;
+  position: relative;
+}
+
+.main-panel__title {
+  color: #3b424f;
+  font-size: 20px;
+  margin: 0 0 30px;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.main-panel__content {
+  position: relative;
+}
+
+.main-panel__pointer-wrapper {
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.main-panel__pointer {
+  animation: pulse-dot 1s infinite;
+  background-color: #ef0b0b;
+  border-radius: 50%;
+  height: 20px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  width: 20px;
+}
+
+.main-panel__image {
+  max-width: 100%;
+}
+
+@keyframes pulse-dot {
+  0% {
+    transform: scale(.8);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(.8);
+  }
+}

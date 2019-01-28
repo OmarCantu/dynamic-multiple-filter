@@ -1,0 +1,21 @@
+.header {
+  background-color: #4286f4;
+  flex-shrink: 0;
+  padding-left: 20px;
+}
+
+.header__heading {
+  color: #fff;
+}
+
+@media only screen and (max-width: 767px) {
+  .header__heading {
+    font-size: 18px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .header__heading {
+    font-size: 20px;
+  }
+}
