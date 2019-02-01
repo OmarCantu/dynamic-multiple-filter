@@ -26,23 +26,27 @@
  *                                { "company_id": 7, "company_name": "Chat Time", ... }
  *                              ]
 */
-export function filterCompanies (companies, filters) {
+export function filterCompanies(companies, filters) {
   const filterKeys = Object.keys(filters);
-
+  console.log('filters');
+  console.log(filters);
   return companies.filter(company => {
     return filterKeys.every(key => {
-      let option = company[key];
-      
+      if (!filters[key].length) {
+        return true;
+      }
+
+      const option = company[key];
+
       if (option.constructor === Array) {
         for (let i = 0; i < option.length; i++) {
           if (filters[key].includes(option[i])) {
             return true;
           }
         }
-
         return false;
       } else {
-        return !!~filters[key].indexOf(company[key])
+        return filters[key].includes(company[key]);
       }
     });
   });
@@ -74,7 +78,7 @@ export function filterCompanies (companies, filters) {
  *                                Services: 5
  *                              }
 */
-export function getFilterOptions (companies, category) {
+export function getFilterOptions(companies = [], category) {
   let options = {};
 
   companies.map(company => {
@@ -108,7 +112,7 @@ export function getFilterOptions (companies, category) {
  * 
  * @return {type}             Sorted array.
 */
-export function sortAlphabetically (arr) {
+export function sortAlphabetically(arr) {
   return arr.sort(function(a, b) {
     let A = a.toUpperCase();
     let B = b.toUpperCase();

@@ -10,14 +10,14 @@ class Filter extends Component {
   static propTypes = {
     category: PropTypes.string,
     children: PropTypes.node,
-    onClickOption: PropTypes.func,
+    onFilter: PropTypes.func,
     options: PropTypes.object
   };
 
   static defaultProps = {
     category: undefined,
     children: undefined,
-    onClickOption: undefined,
+    onFilter: undefined,
     options: undefined
   };
 
@@ -30,22 +30,34 @@ class Filter extends Component {
     }
   }
 
-  onClickOption = (option, isSelected) => {
-    const { category, onClickOption } = this.props;
+  onFilter = (option) => {
+    const { category, onFilter } = this.props;
     const { options } = this.state;
     const index = options.indexOf(option);
 
-    if (index === -1 && isSelected) {
+    if (index === -1) {
       options.push(option);
-    } else if (index !== -1 && !isSelected) {
+    } else {
       options.splice(index, 1);
     } 
 
     this.setState({
-      options: sortAlphabetically(options)
+      //options: sortAlphabetically(options)
+      options
     });
 
-    onClickOption(category, this.state.options);
+    onFilter(category, this.state.options);    
+  }
+
+  onHandleBlur = () => {
+    this.setState({ isOpenOptions: false });
+  }
+
+  onHandleClear = () => {
+    const { category, onFilter } = this.props;
+
+    onFilter(category, []); 
+    this.setState({ options: [] });
   }
 
   onHandleOpenOptions = () => {
@@ -60,7 +72,7 @@ class Filter extends Component {
     const { isOpenOptions } = this.state;
 
     return (
-      <div className="filter">
+      <div className="filter" onBlur={this.onHandleBlur} tabIndex={0}>
         <div className="filter__name" onClick={this.onHandleOpenOptions}>
           <span>{children}</span>
 
@@ -72,7 +84,7 @@ class Filter extends Component {
             <div>
               <span>Amount selected</span>
 
-              <button>Clear</button>
+              <button onClick={this.onHandleClear}>Clear</button>
             </div>
 
             <ul>
@@ -81,7 +93,7 @@ class Filter extends Component {
                   <FilterOption 
                     key={`${name}${count}`}
                     name={name}
-                    onClick={this.onClickOption}
+                    onClick={this.onFilter}
                   >
                     {`${name} (${count})`}
                   </FilterOption>

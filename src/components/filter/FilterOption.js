@@ -32,7 +32,7 @@ class FilterOption extends Component {
       isSelected: !prevState.isSelected
     }));
 
-    onClick(name, this.state.isSelected);
+    onClick(name);
   }
 
   render() {
@@ -40,12 +40,8 @@ class FilterOption extends Component {
 
     const { isSelected } = this.state;
 
-    const className = classNames('filter__option', {
-      'filter__option--active': isSelected,
-    });
-
     return (
-      <li className={className} onClick={this.onClick}>
+      <li className={`active-${isSelected}`} onClick={this.onClick}>
         {/* <span>Check mark icon</span> */}
 
         <span>{children}</span>

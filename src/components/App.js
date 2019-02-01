@@ -5,8 +5,10 @@ import React, { Component } from 'react';
 
 import * as companiesActs from '../state/modules/companies/actions';
 import * as companiesSelectors from '../state/modules/companies/selectors';
-import { filterCompanies, getFilterOptions } from '../util';
+import Card from './card/Card';
 import Filter from './filter/Filter';
+import { FILTER_DATA } from '../constants/general';
+import { filterCompanies, getFilterOptions } from '../util';
 
 import './App.css';
 
@@ -28,59 +30,43 @@ class App extends Component {
     super(props);
 
     this.state = {
-      filteredCompanies: []
+      filteredCompanies: [],
+      filters: {}
     }
   }
 
   componentDidMount() {
     const { companiesActions } = this.props;
     companiesActions.fetchCompanies();
-
-    this.setState({ filteredCompanies: this.props.companies });
   }
 
-  filterCompanies = (companies, filters) => {
-    return filterCompanies(companies, filters);
+  componentDidUpdate(prevProps) {
+    if (prevProps.companies !== this.props.companies) {
+      this.setState({ filteredCompanies: this.props.companies });
+    }
   }
 
-  getFilterOptions = (companies, category) => {
-    return getFilterOptions(companies, category);
+  filterCompanies = () => {   
+    const filteredCompanies = filterCompanies(this.props.companies, this.state.filters);
+    this.setState({ filteredCompanies });
   }
 
-  onHandleClickOption = () => {
+  getFilterOptions = (category) => {
+    // return getFilterOptions(this.state.filteredCompanies, category);
+    return getFilterOptions(this.props.companies, category);
+  }
 
+  onHandleFilter = (category, options) => {
+    const { filters } = this.state;
+    filters[category] = options;
+
+    this.setState({ filters });
+    this.filterCompanies(); 
   }
 
   render() {
-    const { companies } = this.props;
-
-    let filters = [
-      {
-        id: 1,
-        category: 'industry',
-        name: 'Industries',
-        options: this.getFilterOptions(companies, 'industry')
-      },
-      {
-        id: 2,
-        category: 'location',
-        name: 'Location',
-        options: this.getFilterOptions(companies, 'location')
-      },
-      {
-        id: 3,
-        category: 'company_size',
-        name: 'Company Size',
-        options: this.getFilterOptions(companies, 'company_size')
-      },
-      {
-        id: 4,
-        category: 'use_case',
-        name: 'Use Case',
-        options: this.getFilterOptions(companies, 'use_case')
-      }
-    ];
-
+    const { filteredCompanies } = this.state;
+ 
     return (
       <div className="app">
         {/* <Head></Head> */}
@@ -93,15 +79,15 @@ class App extends Component {
               <div>
                 <div>Filter by</div>
 
-                {filters.map(filter => {
-                  const { category, id, name, options } = filter;
+                {FILTER_DATA.map((filter, key) => {
+                  const { category, name } = filter;
 
                   return (
                     <Filter 
                       category={category}
-                      key={id}
-                      onClickOption={this.onHandleClickOption}
-                      options={options} 
+                      key={`${category}${key}`}
+                      onFilter={this.onHandleFilter}
+                      options={this.getFilterOptions(category)} 
                     >
                       {name}
                     </Filter>
@@ -110,11 +96,18 @@ class App extends Component {
               </div>
             </div>
 
-            {/* <Results>
-              <Card />
+            <br />
+            <br />
+            <br />
+            <div>
+              {filteredCompanies.map(company => {
+                const { company_id: key } = company;
 
-              <Card />
-            </Results> */}
+                return (
+                  <Card company={company} key={key} />
+                )  
+              })}
+            </div>
           {/* </Container> */}
         </main>
       </div>
