@@ -82,7 +82,7 @@ export function getFilterOptions(companies = [], category) {
   let options = {};
 
   companies.map(company => {
-    let option = company[category];
+    const option = company[category];
     let optionEntry = [];
 
     if (option.constructor === Array) {

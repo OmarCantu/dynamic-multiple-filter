@@ -7,6 +7,7 @@ import * as companiesActs from '../state/modules/companies/actions';
 import * as companiesSelectors from '../state/modules/companies/selectors';
 import Card from './card/Card';
 import Filter from './filter/Filter';
+import Pagination from './pagination/Pagination';
 import { FILTER_DATA } from '../constants/general';
 import { filterCompanies, getFilterOptions } from '../util';
 
@@ -30,8 +31,10 @@ class App extends Component {
     super(props);
 
     this.state = {
+      currentPage: 1,
       filteredCompanies: [],
-      filters: {}
+      filters: {},
+      resultsPerPage: 9
     }
   }
 
@@ -41,22 +44,31 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.companies !== this.props.companies) {
-      this.setState({ filteredCompanies: this.props.companies });
+    const { companies } = this.props;
+
+    if (prevProps.companies !== companies) {
+      this.setState({ filteredCompanies: companies });
     }
   }
 
   filterCompanies = () => {   
-    const filteredCompanies = filterCompanies(this.props.companies, this.state.filters);
+    const { companies } = this.props;
+
+    const { filters } = this.state;
+
+    const filteredCompanies = filterCompanies(companies, filters);
+
     this.setState({ filteredCompanies });
   }
 
   getFilterOptions = (category) => {
     // return getFilterOptions(this.state.filteredCompanies, category);
-    return getFilterOptions(this.props.companies, category);
+    const { companies } = this.props;
+
+    return getFilterOptions(companies, category);
   }
 
-  onHandleFilter = (category, options) => {
+  handleOnFilter = (category, options) => {
     const { filters } = this.state;
     filters[category] = options;
 
@@ -64,12 +76,55 @@ class App extends Component {
     this.filterCompanies(); 
   }
 
+  handleOnPageClick = event => {
+    console.log('click');
+    
+    this.setState({
+      currentPage: Number(event.target.id)
+    });
+  }
+
+  renderFilters = () => {
+    return FILTER_DATA.map((filter, key) => {
+      const { category, name } = filter;
+
+      return (
+        <Filter 
+          category={category}
+          key={`${category}${key}`}
+          onFilter={this.handleOnFilter}
+          options={this.getFilterOptions(category)} 
+        >
+          {name}
+        </Filter>
+      )
+    })
+  }
+
+  renderResults = () => {
+    const { currentPage, filteredCompanies, resultsPerPage } = this.state;
+
+    const indexOfLastResult = currentPage * resultsPerPage;
+    const indexOfFirstResult = indexOfLastResult - resultsPerPage;
+    
+    const results = filteredCompanies
+                      .slice(indexOfFirstResult, indexOfLastResult);
+
+    return results.map(company => {
+      const { company_id: key } = company;
+
+      return (
+        <Card company={company} key={key} />
+      )  
+    })
+  }
+
   render() {
-    const { filteredCompanies } = this.state;
- 
+    const { currentPage, filteredCompanies, resultsPerPage } = this.state;
+
     return (
       <div className="app">
-        {/* <Head></Head> */}
+        {/* <Header></Header> */}
 
         <main>
           {/* <Container> */}
@@ -79,35 +134,24 @@ class App extends Component {
               <div>
                 <div>Filter by</div>
 
-                {FILTER_DATA.map((filter, key) => {
-                  const { category, name } = filter;
-
-                  return (
-                    <Filter 
-                      category={category}
-                      key={`${category}${key}`}
-                      onFilter={this.onHandleFilter}
-                      options={this.getFilterOptions(category)} 
-                    >
-                      {name}
-                    </Filter>
-                  )
-                })}
+                {this.renderFilters()}
               </div>
             </div>
 
             <br />
             <br />
             <br />
-            <div>
-              {filteredCompanies.map(company => {
-                const { company_id: key } = company;
 
-                return (
-                  <Card company={company} key={key} />
-                )  
-              })}
+            <div>
+              {this.renderResults()}
             </div>
+
+            <Pagination 
+              currentPage={currentPage}
+              numberOfResults={filteredCompanies.length}
+              resultsPerPage={resultsPerPage}
+              onPageClick={this.handleOnPageClick}
+            />
           {/* </Container> */}
         </main>
       </div>

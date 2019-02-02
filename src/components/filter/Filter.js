@@ -30,6 +30,23 @@ class Filter extends Component {
     }
   }
 
+  handleOnBlur = () => {
+    this.setState({ isOpenOptions: false });
+  }
+
+  handleOnClear = () => {
+    const { category, onFilter } = this.props;
+
+    onFilter(category, []); 
+    this.setState({ options: [] });
+  }
+
+  handleOnOpenOptions = () => {
+    this.setState(prevState => ({
+      isOpenOptions: !prevState.isOpenOptions
+    }));
+  }
+  
   onFilter = (option) => {
     const { category, onFilter } = this.props;
     const { options } = this.state;
@@ -49,31 +66,30 @@ class Filter extends Component {
     onFilter(category, this.state.options);    
   }
 
-  onHandleBlur = () => {
-    this.setState({ isOpenOptions: false });
-  }
+  renderFilterOptions = () => {
+    const { options } = this.props;
 
-  onHandleClear = () => {
-    const { category, onFilter } = this.props;
-
-    onFilter(category, []); 
-    this.setState({ options: [] });
-  }
-
-  onHandleOpenOptions = () => {
-    this.setState(prevState => ({
-      isOpenOptions: !prevState.isOpenOptions
-    }));
+    return Object.entries(options).map(([name, count]) => {
+      return (
+        <FilterOption 
+          key={`${name}${count}`}
+          name={name}
+          onClick={this.onFilter}
+        >
+          {`${name} (${count})`}
+        </FilterOption>
+      )
+    })
   }
 
   render() {
-    const { children, options } = this.props;
+    const { children } = this.props;
 
     const { isOpenOptions } = this.state;
 
     return (
-      <div className="filter" onBlur={this.onHandleBlur} tabIndex={0}>
-        <div className="filter__name" onClick={this.onHandleOpenOptions}>
+      <div className="filter" onBlur={this.handleOnBlur} tabIndex={0}>
+        <div className="filter__name" onClick={this.handleOnOpenOptions}>
           <span>{children}</span>
 
           {/* <span>Caret Icon</span>  */}
@@ -84,21 +100,11 @@ class Filter extends Component {
             <div>
               <span>Amount selected</span>
 
-              <button onClick={this.onHandleClear}>Clear</button>
+              <button onClick={this.handleOnClear}>Clear</button>
             </div>
 
             <ul>
-              {Object.entries(options).map(([name, count]) => {
-                return (
-                  <FilterOption 
-                    key={`${name}${count}`}
-                    name={name}
-                    onClick={this.onFilter}
-                  >
-                    {`${name} (${count})`}
-                  </FilterOption>
-                )
-              })}
+              {this.renderFilterOptions()}
             </ul>
           </div>
         )}
