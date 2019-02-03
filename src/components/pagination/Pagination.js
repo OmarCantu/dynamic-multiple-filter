@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import './Pagination.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styles from './Pagination.scss';
 
 class Pagination extends Component {
   static propTypes = {
@@ -28,11 +29,10 @@ class Pagination extends Component {
     }
 
     return (
-      <li
-        id={currentPage - 1}
-        onClick={onPageClick}
-      >
-        Back
+      <li id={currentPage - 1} onClick={onPageClick}>
+        <span>
+          <FontAwesomeIcon icon="angle-left" className="nonono" />
+        </span>
       </li>
     )
   }
@@ -52,11 +52,10 @@ class Pagination extends Component {
     }
 
     return (
-      <li
-        id={currentPage + 1}
-        onClick={onPageClick}
-      >
-        Next
+      <li id={currentPage + 1} onClick={onPageClick}>
+        <span>
+          <FontAwesomeIcon icon="angle-right" className="nonono" />
+        </span>
       </li>
     )
   }

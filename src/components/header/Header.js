@@ -1,24 +1,15 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 
-import './Header.css';
+import src from '../../static/images/logo.png';
 
-const Header = props => {
-  const { children } = props;
+import styles from './Header.scss';
 
+const Header = () => {
   return (
     <header className="header">
-      <h1 className="header__heading">{children}</h1>
+      <img alt='Logo' src={src} />
     </header>
   )
-};
-
-Header.propTypes = {
-  children: PropTypes.node
-};
-
-Header.defaultProps = {
-  children: undefined
 };
 
 export default Header;

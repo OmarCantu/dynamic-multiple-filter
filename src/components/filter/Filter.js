@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { sortAlphabetically } from '../../util';
 
-import './Filter.css';
+import styles from './Filter.scss';
 import FilterOption from './FilterOption';
 
 class Filter extends Component {
@@ -26,7 +27,7 @@ class Filter extends Component {
 
     this.state = {
       isOpenOptions: false,
-      options: []
+      selectedOptions: []
     }
   }
 
@@ -38,7 +39,8 @@ class Filter extends Component {
     const { category, onFilter } = this.props;
 
     onFilter(category, []); 
-    this.setState({ options: [] });
+    
+    this.setState({ selectedOptions: [] });
   }
 
   handleOnOpenOptions = () => {
@@ -47,23 +49,25 @@ class Filter extends Component {
     }));
   }
   
-  onFilter = (option) => {
+  onFilter = option => {
     const { category, onFilter } = this.props;
-    const { options } = this.state;
-    const index = options.indexOf(option);
+
+    const { selectedOptions } = this.state;
+
+    const index = selectedOptions.indexOf(option);
 
     if (index === -1) {
-      options.push(option);
+      selectedOptions.push(option);
     } else {
-      options.splice(index, 1);
+      selectedOptions.splice(index, 1);
     } 
 
     this.setState({
-      //options: sortAlphabetically(options)
-      options
+      //selectedOptions: sortAlphabetically(selectedOptions)
+      selectedOptions
     });
 
-    onFilter(category, this.state.options);    
+    onFilter(category, this.state.selectedOptions);    
   }
 
   renderFilterOptions = () => {
@@ -85,22 +89,24 @@ class Filter extends Component {
   render() {
     const { children } = this.props;
 
-    const { isOpenOptions } = this.state;
+    const { isOpenOptions, selectedOptions } = this.state;
 
     return (
       <div className="filter" onBlur={this.handleOnBlur} tabIndex={0}>
         <div className="filter__name" onClick={this.handleOnOpenOptions}>
           <span>{children}</span>
 
-          {/* <span>Caret Icon</span>  */}
+          <span>
+            <FontAwesomeIcon icon="caret-down" className="nonono" />
+          </span>
         </div>
 
         {isOpenOptions && (
           <div className="filter__options">
             <div>
-              <span>Amount selected</span>
+              <span>{`${selectedOptions.length} selected`}</span>
 
-              <button onClick={this.handleOnClear}>Clear</button>
+              <span onClick={this.handleOnClear}>Clear</span>
             </div>
 
             <ul>

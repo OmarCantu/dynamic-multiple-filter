@@ -1,10 +1,10 @@
-# Dynamic Multiple Filter
-This project is a web page that shows a dynamic multiple filter which returns paginated results.
-The stack includes react.js, redux.js, redux-observable.js, among other technologies.
+# React Multi-filter
+This project is a web page that shows a multi-filter that returns paginated results.
+The technology stack includes react.js, redux.js, redux-observable.js, among others.
 
 ### 1. Requirements:
 
-- Node.js v8.9.4
+- Node.js v10.15.1
 - Yarn v1.10.1
 
 

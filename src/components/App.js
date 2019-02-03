@@ -1,17 +1,38 @@
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux';
+import { 
+  faAngleLeft,
+  faAngleRight,
+  faArrowRight,
+  faCaretDown,
+  faCaretUp,
+  faCheck,
+  faClock
+} from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
 
 import * as companiesActs from '../state/modules/companies/actions';
 import * as companiesSelectors from '../state/modules/companies/selectors';
 import Card from './card/Card';
 import Filter from './filter/Filter';
+import Header from './header/Header';
 import Pagination from './pagination/Pagination';
 import { FILTER_DATA } from '../constants/general';
 import { filterCompanies, getFilterOptions } from '../util';
 
-import './App.css';
+import styles from './App.scss';
+
+library.add(
+  faAngleLeft,
+  faAngleRight,
+  faArrowRight,
+  faCaretDown,
+  faCaretUp,
+  faCheck,
+  faClock
+);
 
 class App extends Component {
   static propTypes = {
@@ -76,9 +97,7 @@ class App extends Component {
     this.filterCompanies(); 
   }
 
-  handleOnPageClick = event => {
-    console.log('click');
-    
+  handleOnPageClick = event => {    
     this.setState({
       currentPage: Number(event.target.id)
     });
@@ -123,8 +142,8 @@ class App extends Component {
     const { currentPage, filteredCompanies, resultsPerPage } = this.state;
 
     return (
-      <div className="app">
-        {/* <Header></Header> */}
+      <div className={styles.example}>
+        <Header />
 
         <main>
           {/* <Container> */}

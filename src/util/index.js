@@ -1,3 +1,5 @@
+import { READ_WORDS_PER_MINUTE } from '../constants/general';
+
 /**
  * Filters out companies based on input filters
  *
@@ -28,8 +30,6 @@
 */
 export function filterCompanies(companies, filters) {
   const filterKeys = Object.keys(filters);
-  console.log('filters');
-  console.log(filters);
   return companies.filter(company => {
     return filterKeys.every(key => {
       if (!filters[key].length) {
@@ -101,6 +101,21 @@ export function getFilterOptions(companies = [], category) {
   });
 
   return options;
+}
+
+/**
+ * Gets read duration.
+ *
+ * This function calculates the duration of a read based on
+ * a word count input and the average amount of words a person 
+ * can read per minute.
+ *
+ * @param {Object} wordCount  Word count. 
+ * 
+ * @return {type}             Read duration in minutes.
+*/
+export function getReadDuration(wordCount) {
+  return Math.ceil(wordCount / READ_WORDS_PER_MINUTE);
 }
 
 /**

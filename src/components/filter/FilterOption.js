@@ -1,8 +1,9 @@
-import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
-import './FilterOption.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import styles from './FilterOption.scss';
 
 class FilterOption extends Component {
   static propTypes = {
@@ -42,7 +43,9 @@ class FilterOption extends Component {
 
     return (
       <li className={`active-${isSelected}`} onClick={this.onClick}>
-        {/* <span>Check mark icon</span> */}
+        <span>
+          <FontAwesomeIcon icon="check" className="nonono" />
+        </span>
 
         <span>{children}</span>
       </li>
