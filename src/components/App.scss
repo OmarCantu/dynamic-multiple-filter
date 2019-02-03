@@ -1,17 +1,18 @@
-.example {
-  color: blue;
-  font-size: 18px;
+@import "../styles/variables";
 
-  &__h {
-    font-style: italic;
-  }
+.header {
+  background-color: $grey-lily-white;
 }
 
-@media only screen and (max-width: 767px) {
-
+.main {
+  background-color: $blue-solitude;
 }
 
-@media only screen and (min-width: 768px) {
+@media (max-width: $tablet - 1) {
+  
+}
 
+@media (min-width: $tablet) {
+  
 }
 

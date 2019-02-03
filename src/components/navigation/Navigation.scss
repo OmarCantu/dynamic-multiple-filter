@@ -1,0 +1,32 @@
+@import "../../styles/variables";
+
+.nav {
+  background-color: $blue-sapphire;
+}
+
+.container {
+  align-items: baseline;
+  display: flex;
+}
+
+@media (max-width: $tablet - 1) {
+  .nav {
+    padding-bottom: 10px;
+    padding-top: 15px;
+  }
+
+  .img {
+    width: 110px;
+  }
+}
+
+@media (min-width: $tablet) {
+  .nav {
+    padding-bottom: 15px;
+    padding-top: 25px;
+  }
+
+  .img {
+    width: 140px;
+  }
+}

@@ -1,10 +1,14 @@
 // COLORS
 // Format: $hue-color-name. See https://www.color-blindness.com/color-name-hue/ for reference
-
 $black:rgb(0, 0, 0); // #000000;
-$blue-heather: rgb(162, 178, 187); // #a2b2bb
+$blue-heather:rgb(162, 178, 187); // #a2b2bb
 $blue-hoki:rgb(93, 120, 136); // #5d7888
 $blue-sapphire:rgb(9, 49, 73); // #093149
 $blue-solitude:rgb(245, 247, 248); // #f5f7f8
 $blue-summer-skye:rgb(60, 165, 231); // #3ca5e7
+$grey-lily-white:rgb(251, 252, 252); // #fbfcfc
 $white:rgb(255, 255, 255); // #ffffff
+
+// BREAKPOINTS
+$tablet: 768px;
+$desktop: 1024px;

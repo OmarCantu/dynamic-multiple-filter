@@ -16,8 +16,9 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import * as companiesActs from '../state/modules/companies/actions';
 import * as companiesSelectors from '../state/modules/companies/selectors';
 import Card from './card/Card';
+import Container from './container/Container';
 import Filter from './filter/Filter';
-import Header from './header/Header';
+import Navigation from './navigation/Navigation';
 import Pagination from './pagination/Pagination';
 import { FILTER_DATA } from '../constants/general';
 import { filterCompanies, getFilterOptions } from '../util';
@@ -142,25 +143,23 @@ class App extends Component {
     const { currentPage, filteredCompanies, resultsPerPage } = this.state;
 
     return (
-      <div className={styles.example}>
-        <Header />
+      <div>
+        <Navigation />
 
-        <main>
-          {/* <Container> */}
+        <header className={styles.header}>
+          <Container>
+            <h1>You're in good company</h1>
+
             <div>
-              <h1>You're in good company</h1>
+              <div>Filter by</div>
 
-              <div>
-                <div>Filter by</div>
-
-                {this.renderFilters()}
-              </div>
+              {this.renderFilters()}
             </div>
+          </Container>
+        </header>
 
-            <br />
-            <br />
-            <br />
-
+        <main className={styles.main}>
+          <Container>
             <div>
               {this.renderResults()}
             </div>
@@ -171,7 +170,7 @@ class App extends Component {
               resultsPerPage={resultsPerPage}
               onPageClick={this.handleOnPageClick}
             />
-          {/* </Container> */}
+          </Container>
         </main>
       </div>
     );
