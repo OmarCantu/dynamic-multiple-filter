@@ -111,6 +111,7 @@ class App extends Component {
       return (
         <Filter 
           category={category}
+          className={styles.filter}
           key={`${category}${key}`}
           onFilter={this.handleOnFilter}
           options={this.getFilterOptions(category)} 
@@ -147,11 +148,11 @@ class App extends Component {
         <Navigation />
 
         <header className={styles.header}>
-          <Container>
-            <h1>You're in good company</h1>
+          <Container className={styles['filters-wrapper']}>
+            <h1 className={styles.heading}>You're in good company</h1>
 
-            <div>
-              <div>Filter by</div>
+            <div className={styles.filters}>
+              <div className={styles['filter-by']}>Filter by</div>
 
               {this.renderFilters()}
             </div>

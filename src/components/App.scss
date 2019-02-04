@@ -1,7 +1,30 @@
 @import "../styles/variables";
 
 .header {
-  background-color: $grey-lily-white;
+  background-color: $grey-lily-white; 
+}
+
+.filters-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  color: $blue-sapphire;
+  line-height: 1;
+}
+
+.filters {
+  display: flex;
+  position: relative;
+}
+
+.filter-by {
+  color: $blue-hoki;
+  font-size: 10px;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .main {
@@ -9,10 +32,56 @@
 }
 
 @media (max-width: $tablet - 1) {
-  
+  .header {
+    padding-bottom: 22px;
+    padding-top: 22px;
+  }
+
+  .heading {
+    font-size: 20px;
+    padding-bottom: 20px;
+  }
+
+  .filters {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .filter-by {
+    margin-bottom: 20px;
+  }
+
+  .filter {
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+  }
 }
 
 @media (min-width: $tablet) {
-  
+  .header {
+    padding-bottom: 192px;
+    padding-top: 82px;
+  }
+
+  .heading {
+    font-size: 24px;
+    padding-bottom: 40px;
+  }
+
+  .filters {
+    align-items: center;
+  }
+
+  .filter-by {
+    left: -60px;
+    position: absolute;
+  }
+
+  .filter {
+    &:not(:last-child) {
+      margin-right: 15px;
+    }
+  }
 }
 

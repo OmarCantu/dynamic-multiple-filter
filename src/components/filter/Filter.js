@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import classNames from 'classnames';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { sortAlphabetically } from '../../util';
@@ -11,6 +12,7 @@ class Filter extends Component {
   static propTypes = {
     category: PropTypes.string,
     children: PropTypes.node,
+    className: PropTypes.string,
     onFilter: PropTypes.func,
     options: PropTypes.object
   };
@@ -18,6 +20,7 @@ class Filter extends Component {
   static defaultProps = {
     category: undefined,
     children: undefined,
+    className: undefined,
     onFilter: undefined,
     options: undefined
   };
@@ -75,7 +78,8 @@ class Filter extends Component {
 
     return Object.entries(options).map(([name, count]) => {
       return (
-        <FilterOption 
+        <FilterOption
+          className={styles.option}
           key={`${name}${count}`}
           name={name}
           onClick={this.onFilter}
@@ -87,33 +91,47 @@ class Filter extends Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, className } = this.props;
 
     const { isOpenOptions, selectedOptions } = this.state;
 
+    const cn = classNames(styles.filter, className);
+
+    const icon = isOpenOptions ? 'caret-up' : 'caret-down';
+
     return (
-      <div className="filter" onBlur={this.handleOnBlur} tabIndex={0}>
-        <div className="filter__name" onClick={this.handleOnOpenOptions}>
-          <span>{children}</span>
+      <div className={cn} onBlur={this.handleOnBlur} tabIndex={0}>
+        <div className={styles['filter-container']}>
+          <div 
+            className={styles.select} 
+            onClick={this.handleOnOpenOptions}
+          >
+            <span className={styles.name}>{children}</span>
 
-          <span>
-            <FontAwesomeIcon icon="caret-down" className="nonono" />
-          </span>
-        </div>
-
-        {isOpenOptions && (
-          <div className="filter__options">
-            <div>
-              <span>{`${selectedOptions.length} selected`}</span>
-
-              <span onClick={this.handleOnClear}>Clear</span>
-            </div>
-
-            <ul>
-              {this.renderFilterOptions()}
-            </ul>
+            <span>
+              <FontAwesomeIcon icon={icon} />
+            </span>
           </div>
-        )}
+
+          {isOpenOptions && (
+            <div className={styles.options}>
+              <div className={styles['options-details']}>
+                <span>{`${selectedOptions.length} selected`}</span>
+
+                <span 
+                  className={styles.clear}
+                  onClick={this.handleOnClear}
+                >
+                  Clear
+                </span>
+              </div>
+
+              <ul>
+                {this.renderFilterOptions()}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
     )
   }

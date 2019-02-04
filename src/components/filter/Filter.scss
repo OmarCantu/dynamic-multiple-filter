@@ -1,0 +1,87 @@
+@import "../../styles/variables";
+
+.filter {
+  color: $blue-hoki;
+  font-size: 14px;
+  line-height: 1;
+  outline: none;
+}
+
+.filter-container {
+  position: relative;
+}
+
+.select,
+.options {
+  background-color: $white;
+  border-radius: $border-radius-small;
+  border: 1px solid $blue-heather;
+}
+
+.select,
+.options-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.select {
+  align-items: center;
+  padding: {
+    bottom: 12px;
+    left: 15px;
+    right: 15px;
+    top: 12px;
+  }
+}
+
+.options {
+  padding: 20px;
+}
+
+.option {
+  &:not(:last-child) {
+    margin-bottom: 5px;
+  }
+}
+
+.options-details {
+  margin-bottom: 18px;
+}
+
+.clear {
+  color: $blue-summer-skye;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+@media (max-width: $tablet - 1) {
+
+}
+
+@media (min-width: $tablet) and (max-width: $desktop - 1) {
+  .filter {
+    width: 140px;
+  }
+
+  .options {
+    width: 210px;
+  }
+}
+
+@media (min-width: $tablet) {
+  .options {
+    position: absolute;
+    top: calc(100% + 10px);
+  }
+}
+
+@media (min-width: $desktop) {
+  .filter {
+    width: 185px;
+  }
+
+  .options {
+    width: 277px;
+  }
+}
+

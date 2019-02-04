@@ -1,0 +1,30 @@
+@import "../../styles/variables";
+
+.option {
+  background-color: $blue-solitude;
+  border-radius: $border-radius-small;
+  padding: {
+    bottom: 15px;
+    left: 30px;
+    top: 15px;
+  }
+}
+
+.selected {
+  background-color: $blue-sapphire;
+}
+
+.option-container{
+  position: relative;
+}
+
+.icon {
+  left: -20px;
+  position: absolute;
+}
+
+.check-mark,
+.selected-text {
+  color: $white;
+}
+
