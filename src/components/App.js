@@ -98,6 +98,18 @@ class App extends Component {
     this.filterCompanies(); 
   }
 
+  handleOnBack = () => {
+    this.setState(prevState => ({
+      currentPage: prevState.currentPage - 1
+    }));
+  }
+
+  handleOnNext = () => {
+    this.setState(prevState => ({
+      currentPage: prevState.currentPage + 1
+    }));
+  }
+
   handleOnPageClick = event => {    
     this.setState({
       currentPage: Number(event.target.id)
@@ -109,12 +121,12 @@ class App extends Component {
       const { category, name } = filter;
 
       return (
-        <Filter 
+        <Filter
           category={category}
           className={styles.filter}
           key={`${category}${key}`}
           onFilter={this.handleOnFilter}
-          options={this.getFilterOptions(category)} 
+          options={this.getFilterOptions(category)}
         >
           {name}
         </Filter>
@@ -160,16 +172,18 @@ class App extends Component {
         </header>
 
         <main className={styles.main}>
-          <Container>
-            <div>
+          <Container className={styles['results-wrapper']}>
+            <div className={styles.results}>
               {this.renderResults()}
             </div>
 
             <Pagination 
               currentPage={currentPage}
               numberOfResults={filteredCompanies.length}
-              resultsPerPage={resultsPerPage}
+              onBack={this.handleOnBack}
+              onNext={this.handleOnNext}
               onPageClick={this.handleOnPageClick}
+              resultsPerPage={resultsPerPage}
             />
           </Container>
         </main>

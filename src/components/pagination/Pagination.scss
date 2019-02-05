@@ -1,0 +1,18 @@
+@import "../../styles/variables";
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.page {
+  color: $blue-sapphire;
+  cursor: pointer;
+  margin: 5px;
+  padding: 5px;
+}
+
+.current {
+  color: $blue-denim;
+  font-weight: bold;
+}

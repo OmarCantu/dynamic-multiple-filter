@@ -76,6 +76,8 @@ class Filter extends Component {
   renderFilterOptions = () => {
     const { options } = this.props;
 
+    const { selectedOptions } = this.state;
+
     return Object.entries(options).map(([name, count]) => {
       return (
         <FilterOption
@@ -83,6 +85,7 @@ class Filter extends Component {
           key={`${name}${count}`}
           name={name}
           onClick={this.onFilter}
+          selected={selectedOptions.includes(name)}
         >
           {`${name} (${count})`}
         </FilterOption>
@@ -125,8 +128,8 @@ class Filter extends Component {
                   Clear
                 </span>
               </div>
-
-              <ul>
+  
+              <ul className={styles['options-list']}>
                 {this.renderFilterOptions()}
               </ul>
             </div>

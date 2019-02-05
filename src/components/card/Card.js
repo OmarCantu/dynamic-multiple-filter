@@ -1,4 +1,6 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { COMPANY } from '../../constants/propTypes';
@@ -7,7 +9,7 @@ import { getReadDuration } from '../../util';
 import styles from './Card.scss';
 
 const Card = props => {
-  const { company } = props;
+  const { className, company } = props;
 
   const { 
     company_name: name,
@@ -16,36 +18,46 @@ const Card = props => {
     word_count: wordCount
   } = company;
 
+  const cn = classNames(styles.card, className);
+
   return (
-    <div>
-      <img alt={name} src={src} />
+    <div className={cn}>
+      <img alt={name} className={styles.img} src={src} />
 
-      <p>{description}</p>
+      <p className={styles.description}>{description}</p>
 
-      <div>
-        <span>Read more</span>
+      <div className={styles['read-more-wrapper']}>
+        <span className={styles['read-more']}>Read more</span>
         
         <span>
-          <FontAwesomeIcon icon="arrow-right" className="nonono" />
+          <FontAwesomeIcon className={styles.arrow} icon="arrow-right" />
         </span>
       </div>
 
-      <div>
+      <div className={styles['duration']}>
         <span>
-          <FontAwesomeIcon icon="clock" className="nonono" mask={['fas', 'clock']} />
+          <FontAwesomeIcon 
+            className={styles.clock}
+            icon="clock"
+            // mask={['far', 'clock']}
+          />
         </span>
 
-        <span>{`${getReadDuration(wordCount)} min read`}</span>
+        <span className={styles.minutes}>
+          {`${getReadDuration(wordCount)} min read`}
+        </span>
       </div>
     </div>
   )
 }
 
 Card.propTypes = {
+  className: PropTypes.string,
   company: COMPANY
 };
 
 Card.defaultProps = {
+  className: undefined,
   company: COMPANY.default
 };
 

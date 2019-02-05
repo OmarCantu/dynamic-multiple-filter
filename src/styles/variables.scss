@@ -1,6 +1,7 @@
 // COLORS
 // Format: $hue-color-name. See https://www.color-blindness.com/color-name-hue/ for reference
 $black:rgb(0, 0, 0); // #000000;
+$blue-denim:rgb(31, 119, 188); // #1f77bc
 $blue-heather:rgb(162, 178, 187); // #a2b2bb
 $blue-hoki:rgb(93, 120, 136); // #5d7888
 $blue-sapphire:rgb(9, 49, 73); // #093149
@@ -10,6 +11,7 @@ $grey-lily-white:rgb(251, 252, 252); // #fbfcfc
 $white:rgb(255, 255, 255); // #ffffff
 
 // BREAKPOINTS
+$medium-phone: 480px;
 $tablet: 768px;
 $desktop: 1024px;
 

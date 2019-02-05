@@ -16,6 +16,7 @@
   background-color: $white;
   border-radius: $border-radius-small;
   border: 1px solid $blue-heather;
+  z-index: 1;
 }
 
 .select,
@@ -54,11 +55,11 @@
   text-decoration: underline;
 }
 
-@media (max-width: $tablet - 1) {
+@media (max-width: $tablet - .5) {
 
 }
 
-@media (min-width: $tablet) and (max-width: $desktop - 1) {
+@media (min-width: $tablet) and (max-width: $desktop - .5) {
   .filter {
     width: 140px;
   }
@@ -72,6 +73,11 @@
   .options {
     position: absolute;
     top: calc(100% + 10px);
+  }
+
+  .options-list {
+    max-height: 230px;
+    overflow-y: scroll;
   }
 }
 

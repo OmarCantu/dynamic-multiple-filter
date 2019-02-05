@@ -1,19 +1,28 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import classNames from 'classnames';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './Pagination.scss';
 
 class Pagination extends Component {
   static propTypes = {
+    className: PropTypes.string,
     currentPage: PropTypes.number,
     numberOfResults: PropTypes.number,
+    onBack: PropTypes.func,
+    onNext: PropTypes.func,
+    onPageClick: PropTypes.func,
     resultsPerPage: PropTypes.number
   };
 
   static defaultProps = {
+    className: undefined,
     currentPage: undefined,
     numberOfResults: undefined,
+    onBack: undefined,
+    onNext: undefined,
+    onPageClick: undefined,
     resultsPerPage: undefined
   };
 
@@ -22,16 +31,16 @@ class Pagination extends Component {
   }
 
   renderBackButton = () => {
-    const { currentPage, onPageClick } = this.props;
+    const { currentPage, onBack } = this.props;
 
     if (currentPage === 1) {
       return null;
     }
 
     return (
-      <li id={currentPage - 1} onClick={onPageClick}>
+      <li className={styles.page} onClick={onBack}>
         <span>
-          <FontAwesomeIcon icon="angle-left" className="nonono" />
+          <FontAwesomeIcon icon="angle-left" />
         </span>
       </li>
     )
@@ -41,7 +50,7 @@ class Pagination extends Component {
     const { 
       currentPage,
       numberOfResults,
-      onPageClick,
+      onNext,
       resultsPerPage
     } = this.props;
 
@@ -52,16 +61,22 @@ class Pagination extends Component {
     }
 
     return (
-      <li id={currentPage + 1} onClick={onPageClick}>
+      <li className={styles.page} onClick={onNext}>
         <span>
-          <FontAwesomeIcon icon="angle-right" className="nonono" />
+          <FontAwesomeIcon icon="angle-right" />
         </span>
       </li>
     )
   }
 
   render() {
-    const { numberOfResults, onPageClick, resultsPerPage } = this.props;
+    const {
+      className,
+      currentPage,
+      numberOfResults,
+      onPageClick,
+      resultsPerPage
+    } = this.props;
 
     if (numberOfResults <= resultsPerPage) {
       return null;
@@ -74,13 +89,20 @@ class Pagination extends Component {
       pageNumbers.push(i);
     }
 
+    const paginationClass = classNames(styles.pagination, className);
+
     return (
-      <ul>
+      <ul className={paginationClass}>
         {this.renderBackButton()}
 
         {pageNumbers.map(number => {
+          const pageClass = classNames(styles.page, {
+            [styles.current]: number === currentPage
+          });
+
           return (
             <li
+              className={pageClass}
               id={number}
               key={number}
               onClick={onPageClick}
