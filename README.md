@@ -1,4 +1,4 @@
-# React Multi-filter
+# Multi-filter page
 This project is a web page that displays multiple filters and returns paginated filtered results.
 
 
