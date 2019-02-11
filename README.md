@@ -1,8 +1,10 @@
-# Multi-filter page
+# Multi-filter Page
 This project is a web page that displays multiple filters and returns paginated filtered results.
 
+![](multi-filter.gif)
 
 ### 1. Technology stack:
+
 - react
 - redux
 - redux-observable
