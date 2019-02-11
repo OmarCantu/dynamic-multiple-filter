@@ -3,9 +3,9 @@ This project is a web page that displays multiple filters and returns paginated 
 
 
 ### 1. Technology stack:
-- react.js
-- redux.js
-- redux-observable.js
+- react
+- redux
+- redux-observable
 
 
 ### 2. Requirements:
