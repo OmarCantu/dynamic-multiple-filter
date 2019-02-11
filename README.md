@@ -21,15 +21,3 @@ This project is a web page that displays multiple filters and returns paginated 
 3. run 'yarn json-server'
 4. run 'yarn start'
 
-## 4. Notes
-- A zeplin mock would have helped a lot.
-- Things I would have liked to add to the project, but didn't due to time constraints:
-
-1. unit testing,
-2. cross-browser testing,
-3. add more to the global state and switch some stateful components to stateless
-4. test in linux
-5. accessibility
-6. more webpack configs
-7. put filters on overlay in mobile
-
