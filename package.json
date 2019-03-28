@@ -85,12 +85,10 @@
     "setupFiles": [
       "<rootDir>/config/polyfills.js",
       "<rootDir>/config/setupTests.js"
-    ],
-    "testMatch": [
-      "<rootDir>/src/**/__tests__/**/*.js?(x)",
-      "<rootDir>/src/**/?(*.)(spec|test).js?(x)",
-      "<rootDir>/src/components/**/?(*.)(spec|test).js?(x)",
-      "<rootDir>/src/components/App.test.js"
+    ],  
+    "testRegex": "((\\.)(test))\\.(js|ts|tsx)?$",
+    "testPathIgnorePatterns": [
+      "/node_modules/"
     ],
     "testEnvironment": "node",
     "testURL": "http://localhost",
