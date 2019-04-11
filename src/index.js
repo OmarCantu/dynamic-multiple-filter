@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
 import './index.scss';
-import App from './components/App';
+import AppContainer from './components/AppContainer';
 import registerServiceWorker from './registerServiceWorker';
 import store from './store';
 
@@ -12,7 +12,7 @@ class Index extends Component {
   render() {
     return (
       <Provider store={store}>
-        <App />
+        <AppContainer />
       </Provider>
     );
   }

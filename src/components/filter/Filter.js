@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { sortAlphabetically } from '../../util';
 
 import styles from './Filter.scss';
 import FilterOption from './FilterOption';
@@ -66,7 +65,6 @@ class Filter extends Component {
     } 
 
     this.setState({
-      //selectedOptions: sortAlphabetically(selectedOptions)
       selectedOptions
     });
 

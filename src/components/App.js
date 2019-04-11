@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux';
 import { 
   faAngleLeft,
   faAngleRight,
@@ -13,8 +11,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
 
-import * as companiesActs from '../state/modules/companies/actions';
-import * as companiesSelectors from '../state/modules/companies/selectors';
 import Card from './card/Card';
 import Container from './container/Container';
 import Filter from './filter/Filter';
@@ -192,15 +188,4 @@ class App extends Component {
   }
 };
 
-const mapStateToProps = state => ({
-  companies: companiesSelectors.companies(state)
-});
-
-const mapDispatchToProps = dispatch => ({
-  companiesActions: bindActionCreators(companiesActs, dispatch)
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default App;

@@ -1,15 +1,16 @@
 import React from 'react';
-import { Provider } from 'react-redux';
 import { shallow } from 'enzyme';
 
-// import App from './App';
-// import store from '../store';
+import { COMPANIES, COMPANIES_ACTIONS } from '../constants/dummyData';
 
-// it('renders without crashing', () => {
-//   shallow(<Provider store={store}><App /></Provider>);
-// });
+import App from './App';
 
-test('Some test', () => {
-  expect(true).toBeTruthy();
-})
+test('renders without crashing', () => {
+  shallow(
+    <App 
+      companies={COMPANIES}
+      companiesActions={COMPANIES_ACTIONS} 
+    />
+  );
+});
 

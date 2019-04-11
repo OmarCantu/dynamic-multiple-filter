@@ -39,7 +39,6 @@ const Card = props => {
           <FontAwesomeIcon 
             className={styles.clock}
             icon="clock"
-            // mask={['far', 'clock']}
           />
         </span>
 
