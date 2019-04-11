@@ -80,7 +80,6 @@ class App extends Component {
   }
 
   getFilterOptions = (category) => {
-    // return getFilterOptions(this.state.filteredCompanies, category);
     const { companies } = this.props;
 
     return getFilterOptions(companies, category);
